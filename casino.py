@@ -1,3 +1,5 @@
+# Casino simulator by mattman2864 on GitHub
+
 import random
 import coloredtext
 
