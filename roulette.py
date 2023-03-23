@@ -1,5 +1,3 @@
-import random
-
 class Roulette:
 	def __init__(self):
 		self.displayPossibleBets = ["Number (0, 00 - 36)", "Red", "Black", "Even", "Odd"]
