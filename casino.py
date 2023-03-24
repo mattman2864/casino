@@ -1,8 +1,9 @@
 # Casino simulator by mattman2864 on GitHub
 
 import random
+import time
 
-games = ["Blackjack (N/A)", "Poker (N/A)", "Roulette", "Slots (N/A)"]
+games = ["Blackjack (N/A)", "Poker (N/A)", "Roulette", "Slots"]
 coins = 100
 
 class Roulette:
@@ -72,12 +73,46 @@ class Roulette:
 			coins += coinsbet*winratio
 			print(f"You now have {coins} coins")
 
+class Slots:
+	def __init__(self):
+		self.ITEMS = ["CHERRY", "LEMON", "ORANGE", "PLUM", "BELL", "BAR", "7"]
+	def play(self, coins):
 
+		ITEMS = ["CHERRY", "LEMON", "ORANGE", "PLUM", "BELL", "BAR", "7"]
+
+		print(f"Welcome to slots!")
+
+		while 1:
+			print(f"How many of your coins will you bet? (You have {coins})")
+			coinsbet = input(">>> ")
+
+			while float(coinsbet) > coins or float(coinsbet) <= 0 or "." in coinsbet:
+				print(f"Invalid number of coins!")
+				print(f"How many of your coins will you bet? (You have {coins})")
+				coinsbet = input(">>> ")
+			if coinsbet == "all":
+				coinsbet = coins
+			coinsbet = int(coinsbet)
+			coins -= coinsbet
+
+			input("PRESS [ENTER] TO SPIN")
+
+			i = random.randint(0,len(ITEMS))
+			for j in range(1,100):
+				print(ITEMS[i + J%len(ITEMS)], "\r")
+				time.sleep(0.1)
+
+			break
+
+		return 0
 
 if __name__ == "__main__":
 
 	print("Welcome to the Casino!")
 	isRunning = True
+
+	roulette = Roulette()
+	slots = Slots
 
 	while isRunning:
 		print(f"Which game would you like to play? You have {coins} coins.")
@@ -97,5 +132,6 @@ if __name__ == "__main__":
 			quit()
 
 		if chosengame.lower() == "roulette":
-			roulette = Roulette()
 			coins = roulette.play(coins)
+		elif chosengame.lower() == "slots":
+			coins = slots.play(coins)
