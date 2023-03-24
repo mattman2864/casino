@@ -1,10 +1,8 @@
 # Casino simulator by mattman2864 on GitHub
 
 import random
-import coloredtext
-import roulette
 
-games = ["Blackjack", "Poker", "Roulette", "Slots"]
+games = ["Blackjack (N/A)", "Poker (N/A)", "Roulette", "Slots (N/A)"]
 coins = 100
 
 class Roulette:
@@ -23,11 +21,12 @@ class Roulette:
 			print("What would you like to bet on?")
 			for possibleBet in self.displayPossibleBets:
 				print(f"-{possibleBet}")
-			print("Quit")
+			print("-Quit")
 			bet = input(">>> ")
 
-			if bet.lower == "quit":
+			if bet.lower() == "quit":
 				game = False
+				print("Leaving Roulette...")
 				return coins
 			
 			print(f"How many of your coins will you bet? (You have {coins})")
@@ -74,6 +73,7 @@ class Roulette:
 			print(f"You now have {coins} coins")
 
 
+
 if __name__ == "__main__":
 
 	print("Welcome to the Casino!")
@@ -83,8 +83,8 @@ if __name__ == "__main__":
 		print(f"Which game would you like to play? You have {coins} coins.")
 		for game in games:
 			print(f"{games.index(game)+1}: {game}")
-		print("Q: Exit Casino")
-		chosengame = input(">> ")
+		print("Q: Quit")
+		chosengame = input(">>> ")
 		try:
 			if chosengame.isnumeric():
 				chosengame = games[int(chosengame)-1]
