@@ -75,10 +75,10 @@ class Roulette:
 
 class Slots:
 	def __init__(self):
-		self.ITEMS = ["CHERRY", "LEMON", "ORANGE", "PLUM", "BELL", "BAR", "7"]
+		self.ITEMS = ["CHERRY", "LEMON", "ORANGE", "PLUM", "BELL", "BAR"]
 	def play(self, coins):
 
-		ITEMS = ["CHERRY", "LEMON", "ORANGE", "PLUM", "BELL", "BAR", "7"]
+		ITEMS = ["CHERRY", "LEMON", "ORANGE", "PLUM", "BELL", "BAR"]
 
 		print(f"Welcome to slots!")
 
@@ -96,15 +96,46 @@ class Slots:
 			coins -= coinsbet
 
 			input("PRESS [ENTER] TO SPIN")
+			spins = []
 
-			i = random.randint(0,len(ITEMS))
-			for j in range(1,100):
-				print(ITEMS[i + J%len(ITEMS)], "\r")
-				time.sleep(0.1)
+			for i in range(3):
+				for j in range(random.randint(20,40)):
+					print("      \r", end="")
+					print(ITEMS[(i + j)%len(ITEMS)], "\r", end="")
+					time.sleep(0.05)
+					spin = ITEMS[(i + j)%len(ITEMS)]
+				spins.append(spin)
+				print()
 
-			break
+			if((spins[0] == "CHERRY") and (spins[1] != "CHERRY")):
+				win = 2
+			elif((spins[0] == "CHERRY") and (spins[1] == "CHERRY") and (spins[2] != "CHERRY")):
+				win = 5
+			elif((spins[0] == "CHERRY") and (spins[1] == "CHERRY") and (spins[2] == "CHERRY")):
+				win = 7
+			elif((spins[0] == "ORANGE") and (spins[1] == "ORANGE") and ((spins[2] == "ORANGE") or (spins[2] == "BAR"))):
+				win = 10
+			elif((spins[0] == "PLUM") and (spins[1] == "PLUM") and ((spins[2] == "PLUM") or (spins[2] == "BAR"))):
+				win = 14
+			elif((spins[0] == "BELL") and (spins[1] == "BELL") and ((spins[2] == "BELL") or (spins[2] == "BAR"))):
+				win = 20
+			elif((spins[0] == "BAR") and (spins[1] == "BAR") and (spins[2] == "BAR")):
+				win = 250
+			else:
+				win = 0
 
-		return 0
+			coinsbet *= win 
+			coins += coinsbet
+
+			print(f"You won {coinsbet} coins!")
+
+			print(f"Would you like to play again? You now have {coins} coins.")
+			playagain = input(">>> ")
+			if not playagain.lower() in ["y", "yes"]:
+				print("Leaving Slots...")
+				break
+
+		return coins
 
 if __name__ == "__main__":
 
@@ -112,9 +143,13 @@ if __name__ == "__main__":
 	isRunning = True
 
 	roulette = Roulette()
-	slots = Slots
+	slots = Slots()
 
 	while isRunning:
+		if not coins:
+			print("You have 0 coins, you can not bet any more :(")
+			break
+
 		print(f"Which game would you like to play? You have {coins} coins.")
 		for game in games:
 			print(f"{games.index(game)+1}: {game}")
